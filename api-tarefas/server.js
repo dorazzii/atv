@@ -3,11 +3,14 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(express.json());
+
 let tarefas = [
   { id: 1, titulo: 'Estudar Express.js', concluida: false },
   { id: 2, titulo: 'Fazer os exercícios de middleware', concluida: false },
   { id: 3, titulo: 'Revisar as rotas da API', concluida: true },
 ];
+let proximoId = 4;
 
 app.get('/', (req, res) => {
   res.send('API de Tarefas no ar');
@@ -34,6 +37,19 @@ app.get('/tarefas/:id', (req, res) => {
   }
 
   res.json(tarefa);
+});
+
+app.post('/tarefas', (req, res) => {
+  const { titulo } = req.body;
+
+  if (!titulo) {
+    return res.status(400).json({ erro: 'Campo "titulo" é obrigatório' });
+  }
+
+  const novaTarefa = { id: proximoId++, titulo, concluida: false };
+  tarefas.push(novaTarefa);
+
+  res.status(201).json(novaTarefa);
 });
 
 app.listen(PORT, () => {
