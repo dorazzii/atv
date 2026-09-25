@@ -14,6 +14,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/tarefas', (req, res) => {
+  const { concluida } = req.query;
+
+  if (concluida !== undefined) {
+    const filtro = concluida === 'true';
+    const tarefasFiltradas = tarefas.filter((t) => t.concluida === filtro);
+    return res.json(tarefasFiltradas);
+  }
+
   res.json(tarefas);
 });
 
