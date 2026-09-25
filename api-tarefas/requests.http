@@ -1,0 +1,31 @@
+### GET /
+GET http://localhost:3000/
+
+### GET /tarefas
+GET http://localhost:3000/tarefas
+
+### GET /tarefas/:id existente
+GET http://localhost:3000/tarefas/1
+
+### GET /tarefas/:id inexistente
+GET http://localhost:3000/tarefas/999
+
+### GET /tarefas?concluida=true
+GET http://localhost:3000/tarefas?concluida=true
+
+### GET /tarefas?concluida=false
+GET http://localhost:3000/tarefas?concluida=false
+
+### POST /tarefas com sucesso
+POST http://localhost:3000/tarefas
+Content-Type: application/json
+
+{
+  "titulo": "Nova tarefa de teste"
+}
+
+### POST /tarefas sem titulo
+POST http://localhost:3000/tarefas
+Content-Type: application/json
+
+{}
