@@ -16,16 +16,26 @@ GET http://localhost:3000/tarefas?concluida=true
 ### GET /tarefas?concluida=false
 GET http://localhost:3000/tarefas?concluida=false
 
-### POST /tarefas com sucesso
+### POST /tarefas autenticado + titulo válido
 POST http://localhost:3000/tarefas
 Content-Type: application/json
+x-auth-token: segredo123
 
 {
   "titulo": "Nova tarefa de teste"
 }
 
-### POST /tarefas sem titulo
+### POST /tarefas sem token
 POST http://localhost:3000/tarefas
 Content-Type: application/json
+
+{
+  "titulo": "Tarefa sem token"
+}
+
+### POST /tarefas autenticado, sem titulo
+POST http://localhost:3000/tarefas
+Content-Type: application/json
+x-auth-token: segredo123
 
 {}

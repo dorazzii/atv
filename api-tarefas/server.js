@@ -39,13 +39,31 @@ app.get('/tarefas/:id', (req, res) => {
   res.json(tarefa);
 });
 
-app.post('/tarefas', (req, res) => {
-  const { titulo } = req.body;
+function autenticar(req, res, next) {
+  const token = req.headers['x-auth-token'];
 
-  if (!titulo) {
+  if (token !== 'segredo123') {
+    return res.status(401).json({ erro: 'Não autorizado' });
+  }
+
+  next();
+}
+
+function validarTitulo(req, res, next) {
+  if (!req.body.titulo) {
     return res.status(400).json({ erro: 'Campo "titulo" é obrigatório' });
   }
 
+  next();
+}
+
+function logAcao(req, res, next) {
+  console.log(`Nova tarefa sendo criada: "${req.body.titulo}"`);
+  next();
+}
+
+app.post('/tarefas', [autenticar, validarTitulo, logAcao], (req, res) => {
+  const { titulo } = req.body;
   const novaTarefa = { id: proximoId++, titulo, concluida: false };
   tarefas.push(novaTarefa);
 
