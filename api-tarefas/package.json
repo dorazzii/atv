@@ -1,0 +1,12 @@
+{
+  "name": "api-tarefas",
+  "version": "1.0.0",
+  "description": "API de Tarefas - exercicios do modulo de Middlewares em Express.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
